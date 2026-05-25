@@ -222,7 +222,7 @@ function buildReminderDate(context) {
     }
   }
 
-  return date.toISOString()
+  return date.toISOString();
 }
 
 exports.buildReminderDate = buildReminderDate

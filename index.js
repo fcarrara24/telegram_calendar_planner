@@ -13,6 +13,15 @@ const { HELP_MESSAGE } = require('./utils/HELP_MESSAGE')
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 const db = loadDB()
+
+
+/**
+ * COMANDO HELP
+ */
+bot.help((ctx) => {
+  ctx.reply(HELP_MESSAGE)
+})
+
 /**
  * RICEZIONE MESSAGGI
  */
@@ -29,13 +38,6 @@ cron.schedule('0 8 * * *', () => heartbeat(bot))
  * CHECK REMINDER OGNI MINUTO
  */
 cron.schedule('* * * * *', () => checkReminders(bot, db, saveDB))
-
-/**
- * COMANDO HELP
- */
-bot.help((ctx) => {
-  ctx.reply(HELP_MESSAGE)
-})
 
 /**
  * START BOT

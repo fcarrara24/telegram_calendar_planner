@@ -25,7 +25,7 @@ function receiveMessages(ctx, db, saveDB) {
   saveDB(db)
 
   if (entry.reminder_at) {
-    ctx.reply(`ok, ti ricorderò di "${entry.text}" il ${new Date(entry.reminder_at).toLocaleString()}`)
+    ctx.reply(`ok, ti ricorderò di "${entry.text}" il ${new Date(entry.reminder_at).toLocaleString('it-IT', { timeZone: 'Europe/Rome' })}`)
   } else {
     ctx.reply('memoria salvata.')
   }
