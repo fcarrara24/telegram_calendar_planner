@@ -82,3 +82,5 @@ Ogni mattina ricevi:
 Probabilmente il server è morto.
 Come ogni cosa bella costruita dagli esseri umani.
 `
+
+module.exports = { HELP_MESSAGE }
