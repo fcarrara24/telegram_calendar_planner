@@ -42,7 +42,7 @@ bot.help((ctx) => {
  */
 bot.launch()
 
-console.log({db})
+// console.log({db})
 
 console.log('🤖 bot online')
 

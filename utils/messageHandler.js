@@ -1,3 +1,5 @@
+const { parseMessage } = require('./parser')
+
 /**
  * receiveMessages - gestisce i messaggi in arrivo, li salva nel DB e imposta eventuali promemoria
  * @param ctx 
