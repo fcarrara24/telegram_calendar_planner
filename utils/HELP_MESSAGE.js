@@ -6,42 +6,79 @@ const HELP_MESSAGE = `
 🧠 BRAIN BOT — MANUALE RAPIDO
 
 📥 CREARE UN PROMEMORIA
-Scrivi normalmente un messaggio:
+
+Scrivi normalmente:
 
 - domani alle 10 chiama il medico
 - tra 3 giorni controlla server
+- tra 2 ore spegni il forno
+- tra 45 minuti esci
+- alle 18 palestra
+- oggi alle 21 film
+- stasera rilassati
 - 13/01/2027 rinnova contratto
+- 12/06 alle 8 dentist
 
 📌 TAG
-Usa #tag per categorizzare:
+
+Usa #tag per organizzare:
+
 - #work
 - #health
 - #bills
+- #ideas
 
 Esempio:
 domani alle 9 call HR #work
 
-⏰ REGOLE DATA
-Supportato:
-- domani
+⏰ REGOLE DATA SUPPORTATE
+
+✅ Relative:
 - oggi
+- domani
 - tra X giorni
-- alle HH:mm
-- date tipo 13/01/2027
+- tra X ore
+- tra X minuti
+
+✅ Orari:
+- alle 18
+- alle 18:30
+- stasera
+
+✅ Date:
+- 13/01/2027
+- 12/06
+- 12/06 alle 8
+
+⚙️ COMPORTAMENTO AUTOMATICO
+
+- "oggi" senza orario → reminder tra 1 ora
+- "domani" senza orario → 09:00
+- solo "alle 18" → oggi alle 18
 
 ⚠️ NOTA
-Se non c'è una data → il messaggio viene salvato ma NON crea un reminder
+
+Se non viene trovata una data:
+- il messaggio viene salvato
+- NON viene creato un reminder
 
 📅 CHECK GIORNALIERO
+
 Ogni mattina ricevi:
 - buongiorno
-- lista task del giorno
+- task del giorno
+- reminder imminenti
 
-🧠 COMPORTAMENTO
-- tutto è salvato
-- niente cartelle
-- niente strutture complesse
-- ricerca manuale = fallback
+🧠 FILOSOFIA DEL BOT
 
-💀 SE NON ARRIVA IL MESSAGGIO MATTUTINO
-Il sistema potrebbe essere offline. Usa la ricerca normale.`
+- input naturale
+- zero menu
+- zero strutture complicate
+- scrivi e basta
+- il parser prova a capire
+
+💀 SE NON ARRIVA NULLA
+
+Probabilmente il server è morto.
+Come ogni cosa bella costruita dagli esseri umani.
+`
