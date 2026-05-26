@@ -1,6 +1,7 @@
 const dotenv = require('dotenv').config()
 const chrono = require('chrono-node')
 const cron = require('node-cron')
+const express = require('express')
 
 const { Telegraf } = require('telegraf')
 const { extractNumberAfterTra, extractTime, parseExplicitDate, setTimeRelative } = 
@@ -14,6 +15,19 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 
 const db = loadDB()
 
+/**
+ * EXPRESS (railway port verification)
+ */
+const app = express()
+const PORT = process.env.PORT || 3000
+
+app.get('/', (req, res) => {
+  res.send('Bot online')
+})
+
+app.listen(PORT, () => {
+  console.log(`🌍 Server listening on port ${PORT}`)
+})
 
 /**
  * COMANDO HELP
