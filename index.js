@@ -57,6 +57,8 @@ cron.schedule('* * * * *', () => checkReminders(bot, db, saveDB))
  * START BOT
  */
 bot.launch()
+  .then(() => console.log('🤖 Bot connesso'))
+  .catch(err => console.error('❌ Errore bot:', err))
 
 // console.log({db})
 
