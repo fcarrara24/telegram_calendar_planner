@@ -30,25 +30,27 @@ function checkReminders(bot, db, saveDB) {
 
     let changed = false
 
-    db.forEach(entry => {
-        
-        if (!entry.reminder_at) return
-        if (entry.sent) return
-        
-        // console.log(`⏰ checking reminder for entry ${entry.id} - reminder_at: ${entry.reminder_at} - now: ${nowIT}`)
-
-        if (new Date(entry.reminder_at) <= now) {
+    if (db && db.reminders) {
+        db.reminders.forEach(entry => {
             
-            // console.log(`✅ reminder sent for entry ${entry.id}`)
-            bot.telegram.sendMessage(
-                entry.chat_id,
-                `⏰ REMINDER:\n\n${entry.text}`
-            )
+            if (!entry.reminder_at) return
+            if (entry.sent) return
+            
+            // console.log(`⏰ checking reminder for entry ${entry.id} - reminder_at: ${entry.reminder_at} - now: ${nowIT}`)
 
-            entry.sent = true
-            changed = true
-        }
-    })
+            if (new Date(entry.reminder_at) <= now) {
+                
+                // console.log(`✅ reminder sent for entry ${entry.id}`)
+                bot.telegram.sendMessage(
+                    entry.chat_id,
+                    `⏰ REMINDER:\n\n${entry.text}`
+                )
+
+                entry.sent = true
+                changed = true
+            }
+        })
+    }
     
     if (changed) saveDB(db)
 }

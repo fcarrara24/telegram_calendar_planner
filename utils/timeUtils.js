@@ -225,4 +225,26 @@ function buildReminderDate(context) {
   return date.toISOString();
 }
 
+function makeRomeDate(plan_date, timeStr) {
+  const [y, m, d] = plan_date.split('-').map(Number);
+  const [hours, minutes] = timeStr.split(':').map(Number);
+  
+  // Crea una data approssimativa in UTC
+  const tempDate = new Date(Date.UTC(y, m - 1, d, hours, minutes, 0));
+  
+  // Troviamo l'ora locale a Roma per questa data UTC
+  const options = { timeZone: 'Europe/Rome', hour: 'numeric', hour12: false };
+  const formatter = new Intl.DateTimeFormat('en-US', options);
+  const romeHour = parseInt(formatter.format(tempDate), 10);
+  
+  // La differenza tra l'ora di Roma e l'ora UTC che abbiamo impostato
+  let diff = romeHour - hours;
+  if (diff > 12) diff -= 24;
+  if (diff < -12) diff += 24;
+  
+  // Sottraiamo la differenza per ottenere l'ora UTC corretta
+  return new Date(Date.UTC(y, m - 1, d, hours - diff, minutes, 0));
+}
+
 exports.buildReminderDate = buildReminderDate
+exports.makeRomeDate = makeRomeDate
