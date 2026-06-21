@@ -5,36 +5,45 @@
 const HELP_MESSAGE = `
 🧠 BRAIN BOT — MANUALE RAPIDO
 
-📥 CREARE UN PROMEMORIA STANDARD
-
-Scrivi normalmente:
-- domani alle 10 chiama il medico
-- tra 3 giorni controlla server
-- alle 18 palestra #health
+💡 *INFO:* Ciascun comando base supporta l'argomento *help* per vedere la sua guida d'uso dettagliata ed esempi! (Es: \`/plan help\`, \`/memory help\`, \`/todo help\`).
 
 📅 PIANIFICAZIONE GIORNALIERA CON GEMINI
 
 1. Avvia una sessione con:
    /plan <diario/pensieri/programmi per domani>
-   Esempio: \`/plan stasera ho le gambe stanche ma domani ho lavoro dalle 8 alle 17, devo ricordarmi la spesa e studiare dopo cena\`
-2. Il bot integrerà le informazioni presenti nella memoria di lavoro e i piani delle ultime 2 giornate (per continuità) proponendo una bozza in Markdown.
-3. Se non ti piace la bozza, rispondi scrivendo le modifiche da apportare.
-4. Gestione della pianificazione:
-    - /ok : Conferma il piano. Il bot estrarrà i task e imposterà un promemoria 5 minuti prima di ogni evento!
+   Esempio: \`/plan stasera ho le gambe stanche ma domani ho lavoro dalle 8 alle 17, devo ricordarmi la spesa\`
+2. Modifica la proposta rispondendo al bot con i cambiamenti richiesti.
+3. Comandi di controllo:
+    - /ok : Conferma il piano ed imposta promemoria 5 minuti prima di ogni evento!
     - /cancel : Annulla la pianificazione corrente.
-    - /show-plan o /showPlan : Mostra la pianificazione confermata per la giornata odierna (o l'ultimo piano registrato).
+    - /show-plan o /showPlan : Mostra la pianificazione confermata di oggi ed i relativi promemoria.
 
-🧠 MEMORIA DI LAVORO (preferenze e vincoli ricorrenti)
+🧠 MEMORIA DI LAVORO (preferenze e vincoli stabili per l'IA)
 
 - /memory <fatto> : Aggiunge un vincolo (es. \`/memory lavoro dalle 8 alle 17\`).
-- /show-memory [indice] o /showMemory [indice] : Mostra tutta la memoria o un fatto specifico tramite il suo numero.
-- /edit-memory <modifica> o /editMemory <modifica> : Chiede a Gemini di aggiornare la memoria (es. \`/edit-memory rimuovi il fatto 3\`).
-- /edit-memory <indice> <nuovo testo> o /editMemory <indice> <nuovo testo> : Modifica manualmente il fatto a quell'indice.
-- /edit-memory <indice> delete o /editMemory <indice> delete : Rimuove manualmente il fatto a quell'indice.
+- /show-memory [indice] o /showMemory [indice] : Mostra tutta la memoria o un fatto specifico.
+- /edit-memory [modifiche] o /editMemory [modifiche] : Modifica o rimuove elementi (IA o manuale).
 
-📦 ESPORTAZIONE STORICO PIANI
+📋 TO-DO LIST (attività senza orario fisso)
 
-- /export [days] : Genera e invia un file di testo (.txt) contenente tutti i prompt e i piani confermati degli ultimi N giorni (di default 7 giorni).
+- /todo <attività> : Aggiunge un elemento alla lista.
+- /todo : Visualizza la lista delle cose da fare.
+- /todo done <indice> : Segna come completata (ed elimina) l'attività.
+- /todo clear : Svuota l'intera lista.
+
+🌤️ METEO
+
+- /weather <città> o /meteo <città> : Mostra le condizioni meteo attuali tramite wttr.in.
+
+📝 APPUNTI E NOTE
+
+- /note <testo> : Aggiunge un appunto rapido.
+- /note : Visualizza tutte le note registrate.
+- /note delete <indice> : Rimuove la nota all'indice specificato.
+
+📦 ESPORTAZIONE
+
+- /export [days] : Esporta i piani degli ultimi N giorni in formato .txt.
 `
 
 module.exports = { HELP_MESSAGE }
