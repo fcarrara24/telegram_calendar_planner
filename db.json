@@ -1,22 +1,120 @@
-[
-  {
-    "id": 1779832546555,
-    "text": "Salutami tra 1 minuto",
-    "reminder_at": "2026-05-26T21:56:46.555Z",
-    "tags": [],
-    "chat_id": 5673807519,
-    "message_id": 87,
-    "sent": true,
-    "created_at": "2026-05-26T21:55:46.555Z"
-  },
-  {
-    "id": 1779832565084,
-    "text": "Salutami tra 1 minuto",
-    "reminder_at": "2026-05-26T21:57:05.084Z",
-    "tags": [],
-    "chat_id": 5673807519,
-    "message_id": 89,
-    "sent": true,
-    "created_at": "2026-05-26T21:56:05.084Z"
-  }
-]
+{
+  "reminders": [
+    {
+      "id": 1779832546555,
+      "text": "Salutami tra 1 minuto",
+      "reminder_at": "2026-05-26T21:56:46.555Z",
+      "tags": [],
+      "chat_id": 5673807519,
+      "message_id": 87,
+      "sent": true,
+      "created_at": "2026-05-26T21:55:46.555Z"
+    },
+    {
+      "id": 1779832565084,
+      "text": "Salutami tra 1 minuto",
+      "reminder_at": "2026-05-26T21:57:05.084Z",
+      "tags": [],
+      "chat_id": 5673807519,
+      "message_id": 89,
+      "sent": true,
+      "created_at": "2026-05-26T21:56:05.084Z"
+    },
+    {
+      "id": 1782036832482,
+      "text": "Ciao",
+      "reminder_at": null,
+      "tags": [],
+      "chat_id": 5673807519,
+      "message_id": 127,
+      "sent": false,
+      "created_at": "2026-06-21T10:13:52.482Z"
+    },
+    {
+      "id": 1782037454961,
+      "text": "Tra 5 minuti inizia: Tempo Libero / Preparazione Pre-Cena (ore 18:30)",
+      "reminder_at": "2026-06-21T16:25:00.000Z",
+      "tags": [
+        "plan-reminder"
+      ],
+      "chat_id": 5673807519,
+      "sent": false,
+      "created_at": "2026-06-21T10:24:14.185Z"
+    },
+    {
+      "id": 1782037454364,
+      "text": "Tra 5 minuti inizia: Cena Veloce (ore 20:00)",
+      "reminder_at": "2026-06-21T17:55:00.000Z",
+      "tags": [
+        "plan-reminder"
+      ],
+      "chat_id": 5673807519,
+      "sent": false,
+      "created_at": "2026-06-21T10:24:14.185Z"
+    },
+    {
+      "id": 1782037454277,
+      "text": "Tra 5 minuti inizia: Preparazione per l'Uscita / Relax Pre-Bar (ore 20:30)",
+      "reminder_at": "2026-06-21T18:25:00.000Z",
+      "tags": [
+        "plan-reminder"
+      ],
+      "chat_id": 5673807519,
+      "sent": false,
+      "created_at": "2026-06-21T10:24:14.185Z"
+    },
+    {
+      "id": 1782037455175,
+      "text": "Tra 5 minuti inizia: Uscita al Bar con i Ragazzi (ore 21:30)",
+      "reminder_at": "2026-06-21T19:25:00.000Z",
+      "tags": [
+        "plan-reminder"
+      ],
+      "chat_id": 5673807519,
+      "sent": false,
+      "created_at": "2026-06-21T10:24:14.186Z"
+    },
+    {
+      "id": 1782037454831,
+      "text": "Tra 5 minuti inizia: Rientro a Casa (ore 00:00)",
+      "reminder_at": "2026-06-20T21:55:00.000Z",
+      "tags": [
+        "plan-reminder"
+      ],
+      "chat_id": 5673807519,
+      "sent": true,
+      "created_at": "2026-06-21T10:24:14.186Z"
+    },
+    {
+      "id": 1782037455161,
+      "text": "Tra 5 minuti inizia: Routine Notturna (ore 00:00)",
+      "reminder_at": "2026-06-20T21:55:00.000Z",
+      "tags": [
+        "plan-reminder"
+      ],
+      "chat_id": 5673807519,
+      "sent": true,
+      "created_at": "2026-06-21T10:24:14.186Z"
+    },
+    {
+      "id": 1782037487729,
+      "text": "/show-plan",
+      "reminder_at": null,
+      "tags": [],
+      "chat_id": 5673807519,
+      "message_id": 145,
+      "sent": false,
+      "created_at": "2026-06-21T10:24:47.729Z"
+    }
+  ],
+  "memory": [],
+  "planHistory": [
+    {
+      "date": "2026-06-21",
+      "prompt": "domani sarà sabato, voglio comunque svegliarmi a una buona ora e continuare a imparare codice, i miei probabilmente faranno pranzo alle 2.15 e forse mi conviene fare un po' di attività fisica.E' usicta anche quella nuova serie di zerocalcare che vorrei vedere.Inifine, dopo cena vorrei uscire coi ragazzi al bar per tornare a mezzanotte, sono carico",
+      "plan": "Ah, certo! Chiedo scusa, ognuno ha i suoi tempi a tavola! 😂 Capito, 30 minuti per cena.\n\nNessun problema, aggiustiamo subito la parte serale per renderla più aderente ai tuoi ritmi. Così hai anche un po' più di tempo per prepararti con calma o rilassarti prima di uscire.\n\nEcco la modifica per la tua serata:\n\n---\n\n## 🌙 Sera: Cena Veloce e Uscita con gli Amici (AGGIORNATO)\n\n*   **18:30 - 20:00:**  свободное время **Tempo Libero / Preparazione Pre-Cena**\n    *   Un po' di tempo per te, per sistemare casa, leggere o iniziare a prepararti.\n*   **20:00 - 20:30:** 🍲 **Cena Veloce**\n    *   Cena in mezz'ora, come preferisci! Magari qualcosa di leggero prima di uscire.\n*   **20:30 - 21:30:** 👕 **Preparazione per l'Uscita / Relax Pre-Bar**\n    *   Ora hai un'ora piena per vestirti, prepararti con calma, o anche solo rilassarti un po' prima di incontrare i ragazzi al bar.\n*   **21:30 - 00:00:** 🍻 **Uscita al Bar con i Ragazzi**\n    *   Divertiti con i tuoi amici! Goditi la serata e le chiacchiere.\n*   **00:00:** 🚶‍♂️ **Rientro a Casa**\n    *   È l'ora di salutare i ragazzi e tornare.\n*   **00:00 - 00:30:** 😴 **Routine Notturna**\n    *   Prepara tutto per domani, rilassati e vai a dormire.\n\n---\n\nTi sembra meglio ora? Fammi sapere se c'è altro da affinare!",
+      "created_at": "2026-06-21T10:24:14.185Z"
+    }
+  ],
+  "activePlanSession": null
+}
