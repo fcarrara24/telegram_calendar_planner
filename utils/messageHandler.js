@@ -1,5 +1,6 @@
 const { parseMessage } = require('./parser')
-const { generatePlanDraft } = require('./geminiClient')
+const { generatePlanDraft, extractTasks } = require('./geminiClient')
+const { formatTaskList } = require('./timeUtils')
 
 /**
  * receiveMessages - gestisce i messaggi in arrivo, li salva nel DB e imposta eventuali promemoria.
@@ -26,13 +27,27 @@ async function receiveMessages(ctx, db, saveDB) {
       // Invia il feedback a Gemini con lo storico corrente e i piani passati
       const response = await generatePlanDraft(feedback, memoryList, session.history, pastPlans);
       
+      // Calcola il contesto della data odierna per estrarre i task
+      const today = new Date();
+      const todayContext = today.toLocaleDateString('it-IT', {
+        timeZone: 'Europe/Rome',
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }) + ` (${today.toISOString().split('T')[0]})`;
+      
+      // Estrae e formatta la lista delle attività aggiornate
+      const { plan_date, tasks } = await extractTasks(response.text, todayContext);
+      const tasksText = formatTaskList(tasks, plan_date);
+      
       // Aggiorna lo stato della sessione
       session.history = response.history;
       session.currentProposal = response.text;
       
       saveDB(db);
       
-      await ctx.reply(response.text, { parse_mode: 'Markdown' });
+      await ctx.reply(`${response.text}\n\n${tasksText}`, { parse_mode: 'Markdown' });
       await ctx.reply("✍️ Se vuoi cambiare qualcosa, rispondi scrivendo le modifiche.\nSe ti va bene, scrivi /ok per confermare.\nAltrimenti scrivi /cancel per annullare.");
     } catch (error) {
       console.error("Errore durante l'elaborazione del feedback del piano:", error);

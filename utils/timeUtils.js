@@ -246,5 +246,34 @@ function makeRomeDate(plan_date, timeStr) {
   return new Date(Date.UTC(y, m - 1, d, hours - diff, minutes, 0));
 }
 
+function formatTaskList(tasks, planDate) {
+  if (!tasks || tasks.length === 0) {
+    return "\n⚠️ *Nessuna attività con orario rilevata.*";
+  }
+  
+  // Ordina i task per ora
+  const sortedTasks = [...tasks].sort((a, b) => a.time.localeCompare(b.time));
+  
+  let text = `\n📋 *Attività rilevate per il ${planDate}:*\n`;
+  sortedTasks.forEach(t => {
+    // Calcoliamo anche l'orario del promemoria (5 minuti prima)
+    const [hours, minutes] = t.time.split(':').map(Number);
+    let remMinutes = minutes - 5;
+    let remHours = hours;
+    if (remMinutes < 0) {
+      remMinutes += 60;
+      remHours -= 1;
+    }
+    if (remHours < 0) {
+      remHours += 24;
+    }
+    const remTimeStr = `${String(remHours).padStart(2, '0')}:${String(remMinutes).padStart(2, '0')}`;
+    
+    text += `- *${t.time}* (Reminder alle ${remTimeStr}): ${t.description}\n`;
+  });
+  return text;
+}
+
 exports.buildReminderDate = buildReminderDate
 exports.makeRomeDate = makeRomeDate
+exports.formatTaskList = formatTaskList

@@ -4,7 +4,7 @@ const cron = require('node-cron')
 const express = require('express')
 
 const { Telegraf } = require('telegraf')
-const { extractNumberAfterTra, extractTime, parseExplicitDate, setTimeRelative, makeRomeDate } = 
+const { extractNumberAfterTra, extractTime, parseExplicitDate, setTimeRelative, makeRomeDate, formatTaskList } = 
   require('./utils/timeUtils')
 const {  checkReminders, heartbeat } = require('./utils/cronFunctions')
 const { receiveMessages } = require('./utils/messageHandler')
@@ -167,6 +167,20 @@ bot.command('plan', async (ctx) => {
     // Genera la bozza iniziale
     const response = await generatePlanDraft(prompt, memoryList, [], pastPlans);
     
+    // Calcola il contesto della data odierna per estrarre i task
+    const today = new Date();
+    const todayContext = today.toLocaleDateString('it-IT', {
+      timeZone: 'Europe/Rome',
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }) + ` (${today.toISOString().split('T')[0]})`;
+    
+    // Estrae e formatta la lista delle attività
+    const { plan_date, tasks } = await extractTasks(response.text, todayContext);
+    const tasksText = formatTaskList(tasks, plan_date);
+    
     // Salva lo stato della sessione attiva
     db.activePlanSession = {
       chat_id: ctx.chat.id,
@@ -177,13 +191,45 @@ bot.command('plan', async (ctx) => {
     };
     saveDB(db);
     
-    await ctx.reply(response.text, { parse_mode: 'Markdown' });
+    await ctx.reply(`${response.text}\n\n${tasksText}`, { parse_mode: 'Markdown' });
     await ctx.reply("✍️ Se vuoi cambiare qualcosa, rispondi scrivendo le modifiche.\nSe ti va bene, scrivi /ok per confermare.\nAltrimenti scrivi /cancel per annullare.");
   } catch (error) {
     console.error("Errore /plan:", error);
     ctx.reply(`❌ Errore durante la generazione del piano: ${error.message}`);
   }
 });
+
+function getPlanRemindersText(planDate) {
+  if (!db.reminders || db.reminders.length === 0) {
+    return "⏰ *Nessun promemoria in coda nel sistema.*";
+  }
+  
+  const planReminders = db.reminders.filter(r => {
+    if (!r.reminder_at) return false;
+    const rDateStr = new Date(r.reminder_at).toLocaleDateString('sv-SE', { timeZone: 'Europe/Rome' });
+    return rDateStr === planDate && r.tags && r.tags.includes('plan-reminder');
+  });
+  
+  if (planReminders.length === 0) {
+    return "⏰ *Nessun promemoria attivo trovato per questo piano.*";
+  }
+  
+  planReminders.sort((a, b) => new Date(a.reminder_at) - new Date(b.reminder_at));
+  
+  let text = "⏰ *Orari di chiamata al servizio notifiche (reminder 5 min prima):*\n";
+  planReminders.forEach(r => {
+    const timeStr = new Date(r.reminder_at).toLocaleTimeString('it-IT', {
+      timeZone: 'Europe/Rome',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    });
+    const status = r.sent ? "✅ Inviato" : "⏳ Programmato";
+    text += `- *${timeStr}* (${status}): ${r.text}\n`;
+  });
+  
+  return text;
+}
 
 // /show-plan
 bot.command(['show-plan', 'showPlan'], (ctx) => {
@@ -196,11 +242,13 @@ bot.command(['show-plan', 'showPlan'], (ctx) => {
   
   const plan = db.planHistory.find(p => p.date === todayStr);
   if (plan) {
-    return ctx.reply(`📅 *Pianificazione di Oggi (${todayStr}):*\n\n${plan.plan}`, { parse_mode: 'Markdown' });
+    const remindersText = getPlanRemindersText(todayStr);
+    return ctx.reply(`📅 *Pianificazione di Oggi (${todayStr}):*\n\n${plan.plan}\n\n${remindersText}`, { parse_mode: 'Markdown' });
   }
   
   const lastPlan = db.planHistory[db.planHistory.length - 1];
-  ctx.reply(`📅 Nessun piano trovato per oggi (${todayStr}).\n\n*Ultimo piano confermato (${lastPlan.date}):*\n\n${lastPlan.plan}`, { parse_mode: 'Markdown' });
+  const remindersText = getPlanRemindersText(lastPlan.date);
+  ctx.reply(`📅 Nessun piano trovato per oggi (${todayStr}).\n\n*Ultimo piano confermato (${lastPlan.date}):*\n\n${lastPlan.plan}\n\n${remindersText}`, { parse_mode: 'Markdown' });
 });
 
 // /cancel
