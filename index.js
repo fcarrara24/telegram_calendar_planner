@@ -21,6 +21,8 @@ const db = loadDB()
 const app = express()
 const PORT = process.env.PORT || 3000
 
+app.use(express.json())
+
 app.get('/', (req, res) => {
   res.send('Bot online')
 })
@@ -56,9 +58,18 @@ cron.schedule('* * * * *', () => checkReminders(bot, db, saveDB))
 /**
  * START BOT
  */
-bot.launch()
-  .then(() => console.log('🤖 Bot connesso'))
-  .catch(err => console.error('❌ Errore bot:', err))
+const WEBHOOK_URL = process.env.WEBHOOK_URL
+if (WEBHOOK_URL) {
+  const secretPath = `/webhook/${process.env.BOT_TOKEN ? process.env.BOT_TOKEN.replace(/:/g, '_') : 'default'}`
+  app.use(bot.webhookCallback(secretPath))
+  bot.telegram.setWebhook(`${WEBHOOK_URL}${secretPath}`)
+    .then(() => console.log(`🤖 Bot connesso via Webhook su: ${WEBHOOK_URL}${secretPath}`))
+    .catch(err => console.error('❌ Errore impostazione webhook:', err))
+} else {
+  bot.launch()
+    .then(() => console.log('🤖 Bot connesso (Long Polling)'))
+    .catch(err => console.error('❌ Errore bot:', err))
+}
 
 // console.log({db})
 

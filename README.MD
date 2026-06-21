@@ -87,10 +87,21 @@ buongiorno
 task del giorno
 reminder imminenti
 
-##### 💀 SE NON ARRIVA NULLA
+##### 💀 SE NON ARRIVA NULLA / DEPLOY SU RENDER
+Se hai caricato il bot su **Render (Free Tier)**, dopo 15 minuti di inattività il server entra in standby. Per evitare che il bot "muoia" e che i reminder smettano di funzionare:
 
-Probabilmente il server è morto.
-Come ogni cosa bella costruita dagli esseri umani.
+1. **Configura i Webhook**:
+   Su Render, aggiungi la variabile d'ambiente:
+   * `WEBHOOK_URL`: `https://tuo-servizio-su-render.onrender.com` (senza lo slash finale `/`).
+   * `BOT_TOKEN`: Il token del tuo bot Telegram.
+
+2. **Evita lo Standby (Keep-Alive)**:
+   Poiché Render spegne il server se non riceve traffico HTTP in ingresso per 15 minuti (bloccando anche il cron dei reminder), devi configurare un ping periodico esterno.
+   * Crea un account gratuito su [cron-job.org](https://cron-job.org/) o [UptimeRobot](https://uptimerobot.com/).
+   * Crea un job/monitor di tipo HTTP (GET) che punta all'URL del tuo server (es. `https://tuo-servizio-su-render.onrender.com/`).
+   * Imposta la frequenza di ping ogni **5 o 10 minuti**.
+   
+   Questo manterrà il server sempre attivo 24/7, garantendo che i reminder vengano inviati al minuto esatto e che il bot risponda istantaneamente.
 
 ### 🧠 FILOSOFIA DEL BOT
 
