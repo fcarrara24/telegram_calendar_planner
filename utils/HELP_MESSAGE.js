@@ -20,17 +20,17 @@ Scrivi normalmente:
 2. Il bot integrerà le informazioni presenti nella memoria di lavoro e i piani delle ultime 2 giornate (per continuità) proponendo una bozza in Markdown.
 3. Se non ti piace la bozza, rispondi scrivendo le modifiche da apportare.
 4. Gestione della pianificazione:
-   - /ok : Conferma il piano. Il bot estrarrà i task e imposterà un promemoria 5 minuti prima di ogni evento!
-   - /cancel : Annulla la pianificazione corrente.
-   - /show-plan : Mostra la pianificazione confermata per la giornata odierna (o l'ultimo piano registrato).
+    - /ok : Conferma il piano. Il bot estrarrà i task e imposterà un promemoria 5 minuti prima di ogni evento!
+    - /cancel : Annulla la pianificazione corrente.
+    - /show-plan o /showPlan : Mostra la pianificazione confermata per la giornata odierna (o l'ultimo piano registrato).
 
 🧠 MEMORIA DI LAVORO (preferenze e vincoli ricorrenti)
 
 - /memory <fatto> : Aggiunge un vincolo (es. \`/memory lavoro dalle 8 alle 17\`).
-- /show-memory [indice] : Mostra tutta la memoria o un fatto specifico tramite il suo numero.
-- /edit-memory <modifica> : Chiede a Gemini di aggiornare la memoria (es. \`/edit-memory rimuovi il fatto 3\`).
-- /edit-memory <indice> <nuovo testo> : Modifica manualmente il fatto a quell'indice.
-- /edit-memory <indice> delete : Rimuove manualmente il fatto a quell'indice.
+- /show-memory [indice] o /showMemory [indice] : Mostra tutta la memoria o un fatto specifico tramite il suo numero.
+- /edit-memory <modifica> o /editMemory <modifica> : Chiede a Gemini di aggiornare la memoria (es. \`/edit-memory rimuovi il fatto 3\`).
+- /edit-memory <indice> <nuovo testo> o /editMemory <indice> <nuovo testo> : Modifica manualmente il fatto a quell'indice.
+- /edit-memory <indice> delete o /editMemory <indice> delete : Rimuove manualmente il fatto a quell'indice.
 
 📦 ESPORTAZIONE STORICO PIANI
 

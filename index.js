@@ -46,7 +46,7 @@ bot.help((ctx) => {
 
 // /memory <fatto>
 bot.command('memory', async (ctx) => {
-  const text = ctx.message.text.substring(7).trim(); // "/memory" length is 7
+  const text = ctx.message.text.split(/\s+/).slice(1).join(' ').trim();
   if (!text) {
     return ctx.reply("ℹ️ Uso: `/memory <fatto da ricordare>`\nEsempio: `/memory lavoro dalle 8 alle 17`", { parse_mode: 'Markdown' });
   }
@@ -59,12 +59,12 @@ bot.command('memory', async (ctx) => {
 });
 
 // /show-memory [index]
-bot.command('show-memory', (ctx) => {
+bot.command(['show-memory', 'showMemory'], (ctx) => {
   if (!db.memory || db.memory.length === 0) {
     return ctx.reply("🧠 La tua memoria di lavoro è vuota.\nUsa `/memory <fatto>` per aggiungere informazioni.", { parse_mode: 'Markdown' });
   }
   
-  const arg = ctx.message.text.substring(12).trim(); // "/show-memory" length is 12
+  const arg = ctx.message.text.split(/\s+/).slice(1).join(' ').trim();
   if (arg) {
     const index = parseInt(arg, 10);
     if (isNaN(index) || index < 1 || index > db.memory.length) {
@@ -78,8 +78,8 @@ bot.command('show-memory', (ctx) => {
 });
 
 // /edit-memory [index / CRUD / modifiche]
-bot.command('edit-memory', async (ctx) => {
-  const text = ctx.message.text.substring(12).trim(); // "/edit-memory" length is 12
+bot.command(['edit-memory', 'editMemory'], async (ctx) => {
+  const text = ctx.message.text.split(/\s+/).slice(1).join(' ').trim();
   if (!text) {
     return ctx.reply("ℹ️ Uso:\n- `/edit-memory <descrivi le modifiche>` (usa Gemini)\n- `/edit-memory <indice> <nuovo testo>` (modifica tecnica)\n- `/edit-memory delete <indice>` o `/edit-memory <indice> delete` (elimina elemento)", { parse_mode: 'Markdown' });
   }
@@ -152,7 +152,7 @@ bot.command('edit-memory', async (ctx) => {
 
 // /plan <prompt>
 bot.command('plan', async (ctx) => {
-  const prompt = ctx.message.text.substring(5).trim(); // "/plan" length is 5
+  const prompt = ctx.message.text.split(/\s+/).slice(1).join(' ').trim();
   if (!prompt) {
     return ctx.reply("ℹ️ Uso: `/plan <diario/pensieri/programmi per domani>`\nEsempio: `/plan stasera sono stanco morto, domani ho lavoro dalle 8 alle 17, devo ricordarmi la spesa e studiare dopo cena.`", { parse_mode: 'Markdown' });
   }
@@ -186,7 +186,7 @@ bot.command('plan', async (ctx) => {
 });
 
 // /show-plan
-bot.command('show-plan', (ctx) => {
+bot.command(['show-plan', 'showPlan'], (ctx) => {
   // Trova il piano confermato per oggi (formato YYYY-MM-DD nel fuso orario di Roma)
   const todayStr = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Rome' });
   
@@ -292,7 +292,7 @@ bot.command('ok', async (ctx) => {
 
 // /export [days]
 bot.command('export', async (ctx) => {
-  const arg = ctx.message.text.substring(7).trim();
+  const arg = ctx.message.text.split(/\s+/).slice(1).join(' ').trim();
   const days = parseInt(arg, 10) || 7;
   
   if (!db.planHistory || db.planHistory.length === 0) {
